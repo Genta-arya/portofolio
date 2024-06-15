@@ -18,7 +18,7 @@ import ProjectCount from "./ProjectCount";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import useCv from "../Hooks/Cv/useCv";
-
+import ReactGA from "react-ga4";
 const Header = () => {
   const { document } = useCv();
 
@@ -36,9 +36,20 @@ const Header = () => {
     } else {
       console.error("Error: CV document URL is not available.");
     }
+    ReactGA.event({
+      category: "Cv Click",
+      action: "Click",
+      label: "Cv Click",
+    });
   };
 
   const handleCallme = () => {
+    ReactGA.event({
+      category: "Hubungi saya Click",
+      action: "Click",
+      label: "Hubungi saya Click",
+    });
+
     const phoneNumber = "6289618601348";
     const message = "Hello Genta";
     const url = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(

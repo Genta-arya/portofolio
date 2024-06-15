@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import Navbar from "../components/Navbar";
@@ -8,9 +8,8 @@ import ModalPreviewImage from "./components/ModalPreviewImage";
 import { motion, AnimatePresence } from "framer-motion";
 import { FRAMEWORKS } from "../Admin/Dashboard/Project/modal/Data";
 import SkeletonGrid from "../Admin/Dashboard/Project/components/SkeletonGrid";
-
+import ReactGA from "react-ga4";
 const DetailProject = () => {
-  // Menggunakan useParams untuk mengambil nilai dari URL
   let { id } = useParams();
   const { projects: projectById, loading, error } = useProjects(id);
   const data = projectById[0];
@@ -26,6 +25,14 @@ const DetailProject = () => {
     setShowModal(false);
     setSelectedImage("");
   };
+  useEffect(() => {
+    ReactGA.send({
+      hitType: "pageview",
+      page: window.location.pathname,
+    });
+
+    window.scrollTo(0, 0);
+  }, []);
 
   if (loading) {
     return (
@@ -41,7 +48,6 @@ const DetailProject = () => {
     );
   }
 
-  // Fungsi untuk mendapatkan nama framework berdasarkan ID
   const getFrameworkName = (frameworkId) => {
     const framework = FRAMEWORKS.find((fw) => fw.id === frameworkId);
     return framework ? framework.name : "";

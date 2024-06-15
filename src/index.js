@@ -11,17 +11,27 @@ import PageDashboard from "./Admin/Dashboard/Page";
 import AuthPage from "./Admin/Auth/Page";
 import DetailProject from "./DetailProject/Page";
 import PageProject from "./ListProject/Page";
+import ReactGA from "react-ga4";
+import JasaPage from "./Jasa/Page";
 const root = ReactDOM.createRoot(document.getElementById("root"));
+ReactGA.initialize("G-Y86XN55NYN");
+ReactGA.send({
+  hitType: "pageview",
+  page: window.location.pathname,
+});
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-    errorElement: <NotFound />,
   },
   {
     path: "/dashboard",
     element: <PageDashboard />,
+  },
+  {
+    path: "*",
+    element: <NotFound />,
   },
 
   {
@@ -35,6 +45,15 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <AuthPage />,
+  },
+
+  {
+    path: "/login",
+    element: <AuthPage />,
+  },
+  {
+    path: "/jasa",
+    element: <JasaPage />,
   },
 ]);
 root.render(

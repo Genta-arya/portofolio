@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import Header from "./components/Header";
@@ -9,17 +9,35 @@ import PersonalInfo from "./components/PersonalInfo/Main";
 import useProjects from "./Hooks/project/useProjects";
 import ListProject from "./components/Project";
 import { Helmet } from "react-helmet";
-
+import ReactGA from "react-ga4";
 function App() {
-  const [headerRef, headerInView] = useInView({
-    triggerOnce: true,
-    threshold: 0.2,
-  });
+  const [showScrollButton, setShowScrollButton] = useState(false);
 
-  const [listProjectRef, listProjectInView] = useInView({
-    triggerOnce: true,
-    threshold: 0.2,
-  });
+  useEffect(() => {
+    ReactGA.send({
+      hitType: "pageview",
+      page: window.location.pathname,
+    });
+  }, []);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 100) {
+        setShowScrollButton(true);
+      } else {
+        setShowScrollButton(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   return (
     <div className="h-screen flex flex-col dark:bg-black">
@@ -35,6 +53,19 @@ function App() {
       <ListProject />
 
       <Footer />
+
+      {showScrollButton && (
+        <motion.button
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          className="fixed bottom-12 right-5 z-50 text-3xl text-white p-2 rounded-full "
+          initial={{ opacity: 0, scale: 0 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
+          whileHover={{ scale: 1.1 }}
+        >
+          ⬆️
+        </motion.button>
+      )}
     </div>
   );
 }

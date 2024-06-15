@@ -45,10 +45,8 @@ const Navbar = () => {
 
   return (
     <motion.nav
-      initial={{ opacity: 0, y: -100 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
-      className="flex justify-between  lg:text-base md:text-base text-xs lg:px-32 px-5 py-5 md:px-12 items-center bg-white dark:bg-black dark:text-white border-b dark:border-gray-500 border-gray-300"
+    
+      className="flex justify-between  lg:text-base md:text-base text-xs lg:px-32 px-5 py-4  md:px-12 items-center bg-white dark:bg-black dark:text-white border-b dark:border-gray-500 border-gray-300"
     >
       {showBackButton ? (
         <button
@@ -79,6 +77,17 @@ const Navbar = () => {
             }text-gray-900 dark:text-gray-300  `}
           >
             Project
+          </Link>
+
+          <Link
+            to="/jasa"
+            className={`${
+              location.pathname === "/jasa"
+                ? "border-b-2 border-oren font-bold "
+                : ""
+            }text-gray-900 dark:text-gray-300  `}
+          >
+            Service
           </Link>
         </nav>
       )}

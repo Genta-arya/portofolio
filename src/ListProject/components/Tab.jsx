@@ -4,13 +4,20 @@ import ListProject from "./ListProject";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAndroid } from "@fortawesome/free-brands-svg-icons";
 import { faGlobe } from "@fortawesome/free-solid-svg-icons";
-
+import ReactGA from "react-ga4";
 const TabProject = () => {
   const [activeTab, setActiveTab] = useState("web");
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
+    ReactGA.event({
+      category: "Tab Project Click",
+      action: "Click",
+      label: tab,
+    });
   };
+
+
 
   return (
     <div className="mt-8 lg:mt-16 dark:bg-black">

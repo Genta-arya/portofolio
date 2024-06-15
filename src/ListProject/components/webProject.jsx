@@ -1,9 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { formatProjectName, truncateName } from "../../utils/utils";
-
+import ReactGA from "react-ga4";
 const WebProject = ({ project }) => {
   const formattedProjectName = formatProjectName(project.name);
+
+  const handleClick = (data) => {
+    ReactGA.event({
+      category: "Project Click",
+      action: "Click",
+      label: data,
+    });
+  };
+
   return (
     <>
       <div className="overflow-hidden   ">
@@ -25,6 +34,7 @@ const WebProject = ({ project }) => {
           />
           <div className="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition duration-300 bg-black bg-opacity-50">
             <Link
+              onClick={() => handleClick(project.name)}
               to={`/project/${formattedProjectName}/${project.id}`}
               className="text-white lg:text-sm text-xs md:text-sm lg:px-4 px-3 py-1 lg:py-2 rounded-md bg-sky-500 hover:bg-sky-600 transition-colors"
             >

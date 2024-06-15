@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 import { formatProjectName } from "../utils/utils";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-
+import ReactGA from "react-ga4";
 const ListProjectCarousel = () => {
   const { webProjects: projects, loading } = useProjects();
   const ref = React.useRef(null);
@@ -21,6 +21,14 @@ const ListProjectCarousel = () => {
   });
 
   const [activeIndex, setActiveIndex] = useState(0);
+
+  const handleClick = (data) => {
+    ReactGA.event({
+      category: "Project Click",
+      action: "Click",
+      label: data,
+    });
+  };
 
   const handleBeforeChange = (oldIndex, newIndex) => {
     setActiveIndex(newIndex);
@@ -55,7 +63,7 @@ const ListProjectCarousel = () => {
 
   return (
     <div className="dark:bg-black dark:text-white ">
-      <hr className=" dark:border-gray-500 border-gray-300 mt-12 lg:block md:block hidden"></hr>
+      <hr className=" dark:border-gray-500 border-gray-300 mt-12 "></hr>
       <motion.div
         ref={headerRef}
         initial={{ opacity: 0, y: 100 }}
@@ -91,6 +99,7 @@ const ListProjectCarousel = () => {
                 <Slider {...settings} className="">
                   {projects.map((project) => (
                     <Link
+                      onClick={() => handleClick(project.name)}
                       key={project.id}
                       className=""
                       to={`/project/${formatProjectName(project.name)}/${
