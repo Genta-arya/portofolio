@@ -33,12 +33,14 @@ const ListProject = ({ active }) => {
   };
 
   const projectVariants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: 40 , scale:0.8 },
     visible: (i) => ({
       opacity: 1,
       y: 0,
+      scale:1,
       transition: {
-        delay: i * 0.1,
+        delay: i * 0.3,
+        duration:0.8
       },
     }),
   };

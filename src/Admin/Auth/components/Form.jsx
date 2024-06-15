@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import ResetPasswordModal from "./ModalResetPassword";
 import { auth } from "../../../Config/Firebase/FirebaseConfig";
 import { login } from "../../../Redux/Slices/AuthSlice";
+import { Helmet } from "react-helmet";
 
 const Form = () => {
   const [email, setEmail] = useState("");
@@ -55,10 +56,13 @@ const Form = () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
+      <Helmet>
+        <title>Portofolio - Login</title>
+      </Helmet>
       <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md">
         <div>
           <p className="text-lg font-bold text-center ">
-            System AFC orgen tunggal
+            System Dashboard Portofolio
           </p>
           <p className="text-lg font-bold text-center ">V.1.0</p>
         </div>
